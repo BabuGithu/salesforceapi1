@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<flow name="updateAccountObjectFlow" doc:id="f704be09-f59c-4b5e-a37e-09e27c421e1f" >
+		<ee:transform doc:name="Transform Message" doc:id="2aece7a8-621c-494a-ba74-770dde00566a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload map ( payload01 , indexOfpayload01 ) -> {
+	AccountName: payload01.parentAccount,
+	Name: payload01.accountName,
+	Phone: payload01.phone as String,
+	Fax: payload01.fax as String,
+	BillingCity: payload01.billingCity,
+	BillingStreet: payload01.shippingStreet,
+	Website: payload01.accountSite
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:upsert objectType="Account" externalIdFieldName="Id" doc:name="Upsert" doc:id="a7424022-440e-4d0b-99d5-b8afe4a49b6b" config-ref="Salesforce_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="ed955479-91d7-434e-94da-6372b4318014" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
