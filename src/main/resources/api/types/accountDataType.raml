@@ -1,0 +1,33 @@
+#%RAML 1.0 Library
+usage: DataType for accounts
+
+types:
+  accountDetails:
+    type: array
+    items: 
+      type: object
+      properties:
+        accountName:
+           type: string
+           example: girikon solutions
+           description: accountName
+        phone:
+           type: number
+           example: 7702641903
+           description: phoneNumber
+        parentAccount:
+           type: string
+           example: savingAccount
+           description: parentAccount
+        fax:
+           type: number
+           example: 8919977077
+           description: mobileNumber
+
+      
+
+           
+
+      
+      
+

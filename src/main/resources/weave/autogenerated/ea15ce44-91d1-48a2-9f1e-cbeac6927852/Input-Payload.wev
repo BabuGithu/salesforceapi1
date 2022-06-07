@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_ea15ce44_91d1_48a2_9f1e_cbeac6927852_Input_Payload = Array<{  accountName: String,   phone: Number,   parentAccount: String,   fax: Number,   _?: Any}>
+
